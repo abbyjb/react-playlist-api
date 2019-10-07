@@ -2,6 +2,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let morgan = require('morgan');
 let mongoose = require('mongoose');
+// let http = require('http');
 require('dotenv').config();
 
 // mongodb connection
@@ -16,13 +17,15 @@ mongoose.connection.on('error', (error) => {
 });
 
 var app = express();
+// var server = http.createServer(app);
 
 // middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-
 require('./routes').default(app);
 
-app.listen(process.env.PORT);
+// app = server.listen(process.env.PORT);
+
+module.exports = app;

@@ -1,31 +1,29 @@
-import {Song} from "./songs.model";
+import { Song } from "./songs.model";
 
 module.exports = {
-  getAllSongs: async (req, res, next) =>{
+  getAllSongs: async (req, res, next) => {
     try {
       let songs = await Song.find();
       return res.status(200).json(songs);
-    }
-    catch(error) {
+    } catch (error) {
       return next(error);
     }
   },
 
   getOneSong: async (req, res, next) => {
     try {
-      const id = req.params.id
+      const id = req.params.id;
 
       let song = await Song.findById(id);
 
-      if(!song) {
-        return res.status(404).json({message: "song not found"});
+      if (!song) {
+        return res.status(404).json({ message: "song not found" });
       }
       return res.status(200).json(song);
-    }
-    catch(error) {
+    } catch (error) {
       return next(error);
     }
-  }, 
+  },
 
   addSong: async (req, res, next) => {
     try {
@@ -37,11 +35,10 @@ module.exports = {
 
       let savedSong = await newSong.save();
       return res.status(201).json(savedSong);
-    }
-    catch(error){
-      if(error.name === 'ValidationError'){
-        return res.status(400).json({message: error.message });
-       }
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        return res.status(400).json({ message: error.message });
+      }
       return next(error);
     }
   },
@@ -52,25 +49,23 @@ module.exports = {
 
       let song = await Song.findById(id);
 
-      if(song) {
+      if (song) {
         song.title = req.body.title;
         song.artist = req.body.artist;
         song.album = req.body.album;
-        
+
         await song.increment().save();
         return res.status(200).json(song);
       }
 
-      return res.status(404).json({message: "song to update not found"})
-
-    } 
-    catch (error) {
-      if(error.name === 'ValidationError'){
-        return res.status(400).json({message: error.message });
+      return res.status(404).json({ message: "song to update not found" });
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        return res.status(400).json({ message: error.message });
       }
-       return next(err);
-    } 
-  }, 
+      return next(err);
+    }
+  },
 
   deleteSong: async (req, res, next) => {
     try {
@@ -78,14 +73,13 @@ module.exports = {
 
       let song = await Song.findById(id);
 
-      if(song) {
+      if (song) {
         await song.remove();
         return res.status(204).send();
       }
-      return res.status(404).json({message: "song to delete not found"});
-    } 
-    catch (error) {
+      return res.status(404).json({ message: "song to delete not found" });
+    } catch (error) {
       return next(error);
     }
   }
-}
+};
