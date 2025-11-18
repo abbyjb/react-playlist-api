@@ -1,28 +1,26 @@
-import {Playlist} from './playlist.model';
-import { Song } from '../songs/songs.model';
+import { Playlist } from "./playlist.model";
+import { Song } from "../songs/songs.model";
 
 module.exports = {
   getAllPlaylists: async (req, res, next) => {
     try {
-      let playlists = await Playlist.find().populate({path: 'songs'});
+      let playlists = await Playlist.find().populate({ path: "songs" });
       return res.status(200).json(playlists);
-    }
-    catch(error) {
+    } catch (error) {
       return next(error);
     }
   },
   getPlaylist: async (req, res, next) => {
     try {
       const id = req.params.id;
-      
-      let playlist = await Song.findById(id);
 
-      if(playlist) {
+      let playlist = await Playlist.findById(id).populate({path: "songs"});
+
+      if (playlist) {
         return res.status(200).json(playlist);
       }
-      res.status(404).json({message: "playlist not found"});
-    } 
-    catch (error) {
+      return res.status(404).json({ message: "playlist not found" });
+    } catch (error) {
       return next(error);
     }
   },
@@ -35,31 +33,28 @@ module.exports = {
 
       let savedPlaylist = await newPlaylist.save();
       return res.status(201).json(savedPlaylist);
-    }
-    catch(error) {
-      if(error.name === 'ValidationError'){
-        return res.status(400).json({message: error.message });
-       }
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        return res.status(400).json({ message: error.message });
+      }
       return next(error);
     }
   },
   updatePlaylist: async (req, res, next) => {
     try {
       const id = req.params.id;
-      
-      let playlist = await Playlist.findById(id);
 
-      if(playlist) {
+      let playlist = await Playlist.findById(id).populate({path: "songs"});
+
+      if (playlist) {
         playlist.title = req.body.title;
         let savedPlaylist = await playlist.increment().save();
         return res.status(200).json(savedPlaylist);
       }
-      return res.status(404).json({message: "playlist not found"});
-
-    } 
-    catch (error) {
-      if (error.name === "Validation Error") {
-        return res.status(400).json({message: error.message});
+      return res.status(404).json({ message: "playlist to update not found" });
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        return res.status(400).json({ message: error.message });
       }
       return next(error);
     }
@@ -70,14 +65,13 @@ module.exports = {
 
       let playlist = await Playlist.findById(id);
 
-      if(playlist) {
+      if (playlist) {
         let deletedPlaylist = await playlist.remove();
         return res.status(204).json();
       }
-      return res.status(404).json({message: "playlist not found"});
-    } 
-    catch (error) {
+      return res.status(404).json({ message: "playlist to delete not found" });
+    } catch (error) {
       return next(error);
     }
   }
-}
+};

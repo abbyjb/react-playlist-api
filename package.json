@@ -4,8 +4,8 @@
   "description": "Utilizes spotify's Web API to access a current user's playlists",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon --exec babel-node app.js"
+    "test": "jest",
+    "start:dev": "nodemon --exec babel-node server.js"
   },
   "author": "Abby Bashore",
   "license": "MIT",
@@ -21,10 +21,19 @@
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/node": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/register": "^7.6.2",
+    "jest": "^24.9.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.3",
-    "npm": "^6.11.3"
+    "npm": "^6.11.3",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
