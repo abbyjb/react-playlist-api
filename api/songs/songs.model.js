@@ -1,15 +1,15 @@
 
-import mongoose, {Schema, model} from 'mongoose';
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const ObjectId = Schema.ObjectId;
-let songSchema = Schema({
-  id: ObjectId, 
+
+const songSchema = Schema({
   title: {type: String, required: true},
   artist: {type: String, required: true},
   album: {type: String, required: true}
 });
 
-const Song = mongoose.model("song", songSchema);
+const Song = mongoose.model('Song', songSchema);
 
-export { Song }
+export {Song};
 
