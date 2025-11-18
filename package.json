@@ -1,0 +1,30 @@
+{
+  "name": "react-playlist-api",
+  "version": "1.0.0",
+  "description": "Utilizes spotify's Web API to access a current user's playlists",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon --exec babel-node app.js"
+  },
+  "author": "Abby Bashore",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/register": "^7.6.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.3",
+    "npm": "^6.11.3"
+  }
+}
