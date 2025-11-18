@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
@@ -12,4 +11,3 @@ const songSchema = Schema({
 const Song = mongoose.model('Song', songSchema);
 
 export {Song};
-
